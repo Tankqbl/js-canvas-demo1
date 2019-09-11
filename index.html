@@ -8,24 +8,28 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div id="canvas"></div>
+    <canvas id="canvas" width="1903" height="1040"></canvas>
     <script>
-      canvas.onclick = e => {
-        let div = document.createElement("div");
-        console.log(e);
-        console.log(e.clientX);
-        console.log(e.clientY);
-        div.style.position = "absolute";
-        div.style.left = e.clientX + "px";
-        div.style.top = e.clientY + "px";
-        div.style.border = "1px red solid";
-        div.style.width = "6px";
-        div.style.height = "6px";
-        div.style.marginLeft = "-3px";
-        div.style.marginTop = "-3px";
-        canvas.appendChild(div);
-        div.style.borderRadius = "50%";
-        div.style.background = "black";
+      let canvas = document.getElementById("canvas");
+      canvas.width = document.documentElement.clientWidth;
+      canvas.height = document.documentElement.clientHeight;
+      console.log(document.body.clientWidth);
+      console.log(document.body.clientHeight);
+      let ctx = canvas.getContext("2d");
+      let painting = false;
+      ctx.fillStyle = "green";
+      canvas.onmousedown = e => {
+        painting = true;
+      };
+      canvas.onmousemove = e => {
+        if (painting === true) {
+          ctx.fillRect(e.clientX - 5, e.clientY - 5, 10, 10);
+        } else {
+          console.log("none");
+        }
+      };
+      canvas.onmouseup = e => {
+        painting = false;
       };
     </script>
   </body>
